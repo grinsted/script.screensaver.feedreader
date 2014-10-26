@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+	<setting label="32001" type="slider" id="Time" default="24" range="2,2,100" option="int" />
+    <setting label="32002" type="labelenum" id="Sorting" values="None|Time|Interleave" default="Interleave"/>	
+	<setting label="32101" type="text" id="Feed1" default="http://yle.fi/uutiset/rss/paauutiset.rss"/>
+	<setting label="32102" type="text" id="Feed2" default="http://yle.fi/uutiset/rss/uutiset.rss"/>
+	<setting label="32103" type="text" id="Feed3" default="http://www.kaleva.fi/rss/show/"/>
+	<setting label="32104" type="text" id="Feed4" default="http://www.mtv.fi/api/feed/rss/uutiset_uusimmat"/>
+	<setting label="32105" type="text" id="Feed5" default="climate"/>
+	<setting label="32106" type="text" id="Feed6" default="science"/>
+	<setting label="32107" type="text" id="Feed7" default="http://rss.tv2.dk/rss/show/site/vejret.tv2.dk/feed/TV+2+Vejret/index.xml"/>
+</settings>
