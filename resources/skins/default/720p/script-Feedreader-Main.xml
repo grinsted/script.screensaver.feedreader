@@ -95,8 +95,8 @@
         <control type="textbox" id="30005">
          <description>Debug</description>
          <posx>0</posx>
-         <posy>670</posy>
-         <width>835</width>
+         <posy>520</posy>
+         <width>1280</width>
          <height>200</height>
          <visible>true</visible>
          <align>left</align>

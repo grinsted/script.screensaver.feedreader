@@ -93,7 +93,9 @@ class Screensaver(xbmcgui.WindowXMLDialog):
             desc = re.sub('\\n\\n+','\n\n',desc)
             desc = HTMLParser.HTMLParser().unescape(desc)
             self.getControl(CONTROL_MAINSTORY).setText(desc.strip())
-            sdate=time.strftime('%d %b %H:%M',item.published_parsed)
+            if 'published_parsed' in item:
+                sdate=time.strftime('%d %b %H:%M',item.published_parsed)
+            else: sdate=''
             self.getControl(CONTROL_DATE).setText('%s\n%s' % (item.feedtitle,sdate))
             try:
                 maxwidth=0
@@ -108,8 +110,9 @@ class Screensaver(xbmcgui.WindowXMLDialog):
                     for img in item.enclosures:
                         if re.search('\.(png|jpg|jpeg|gif)',img.href.lower()):
                             cimg = img.href
-                        elif img.type.lower().find('image') >= 0:
-                            cimg = img.href
+                        elif 'type' in img:
+                            if img.type.lower().find('image') >= 0:
+                                cimg = img.href
             except:
                 pass
             if cimg:
@@ -123,7 +126,7 @@ class Screensaver(xbmcgui.WindowXMLDialog):
                 self.getControl(CONTROL_IMAGE).setImage(cimg)
                 #self.getControl(CONTROL_DEBUG).setText('test: %s' % cimg)
         except:
-            self.getControl(CONTROL_DEBUG).setText('dn Err: %s' % sys.exc_info())
+            self.getControl(CONTROL_DEBUG).setText('dn Err: %s' % traceback.format_tb(sys.exc_info()[2]))
 
         #self.getControl(CONTROL_DEBUG).setText('%d' % len(desc))
         #self.itemtimer = Timer(float(addon.getSetting('Time')), self.displayNext)
