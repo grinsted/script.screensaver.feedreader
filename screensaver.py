@@ -35,7 +35,7 @@ import feedparser
 import re
 #from threading import Timer
 import urllib
-import HTMLParser
+import HTMLParser #alternative: http://fredericiana.com/2010/10/08/decoding-html-entities-to-text-in-python/
 import time
 import requests
 import urlparse
