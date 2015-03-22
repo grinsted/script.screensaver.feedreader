@@ -98,6 +98,7 @@ class Screensaver(xbmcgui.WindowXMLDialog):
             desc = re.sub('<br[^>\\n]*>','\n',desc)
             desc = re.sub('<[^>\\n]+>','',desc)
             desc = re.sub('\\n\\n+','\n\n',desc)
+            desc = re.sub('( [A-za-z0-9]+) *\\n([a-z0-9]+ )','\\1 \\2',desc)  
             desc = HTMLParser.HTMLParser().unescape(desc)
             self.getControl(CONTROL_MAINSTORY).setText(desc.strip())
             if 'published_parsed' in item:
