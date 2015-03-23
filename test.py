@@ -16,6 +16,11 @@ print datetime.datetime.now().time()
 
 url='sea level rise'
 
+
+desc = re.sub('(\\w+,?) *\\n(\\w+)','\\1 \\2','ASDF SDF ASDF,\nasddas. ')  
+print desc
+
+
 if url.find('//')<0: #bing mode
     url = "https://www.bing.com/news/search?q=%s&format=RSS" % urllib.quote_plus(url)
     url = requests.get(url, headers={'Accept-Language': 'en-US,en'});
@@ -27,14 +32,3 @@ if url.find('//')<0: #bing mode
 feed = feedparser.parse(url)
 
 item = feed.entries[0]
-
-try:
-    j=item['feredfe']
-    pass
-except Exception, e:
-    print repr(traceback.format_exc())
-    raise
-else:
-    pass
-finally:
-    pass
