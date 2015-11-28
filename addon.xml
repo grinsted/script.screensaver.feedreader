@@ -10,8 +10,9 @@
     <extension point="xbmc.addon.metadata">
         <platform>all</platform>
         <language/>
+        <license>MIT License</license>
         <website>https://github.com/grinsted/script.screensaver.feedreader</website>
-        <source></source>
+        <source>https://github.com/grinsted/script.screensaver.feedreader</source>
         <forum>http://forum.kodi.tv/showthread.php?tid=208160</forum>
         <email></email>
         <summary lang="en">Feedreader: A screensaver with the news.</summary>
