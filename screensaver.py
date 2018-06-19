@@ -93,6 +93,8 @@ class Screensaver(xbmcgui.WindowXMLDialog):
             imgsrc = re.search('img[^<>\\n]+src=[\'"]([^"\']+)[\'"]',desc)
             if imgsrc:
                 cimg=imgsrc.group(1)
+            else:
+                cimg='https://upload.wikimedia.org/wikipedia/en/thumb/4/43/Feed-icon.svg/480px-Feed-icon.svg.png'
             #convert news text into plain text
             desc = re.sub('<p[^>\\n]*>','\n\n',desc)
             desc = re.sub('<br[^>\\n]*>','\n',desc)
