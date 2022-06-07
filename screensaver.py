@@ -197,7 +197,7 @@ class Screensaver(xbmcgui.WindowXMLDialog):
         self.feedcounter = -1.
         self.getControl(CONTROL_MAINSTORY).setText('')
         self.delayTime=float(addon.getSetting('Time'));
-        for x in range(1, 7):
+        for x in range(1, 8):
             if not self.abort_requested:
                 self.addFeed(addon.getSetting('Feed%d' % x))
                 xbmc.sleep(100)
