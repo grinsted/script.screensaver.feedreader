@@ -1,6 +1,6 @@
 
 # Feedreader
-## an rss sreensaver for KODI/XBMC
+## an rss screensaver for KODI/XBMC
 
 Feedreader will shows you the news and images from multiple rss feeds of your choice.
 
