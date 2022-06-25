@@ -2,6 +2,15 @@
 <window type="window">
     <controls>
 
+        <control type="image">
+            <description>Black Background</description>
+            <posx>0</posx>
+            <posy>0</posy>
+            <width>1280</width>
+            <height>720</height>
+            <texture>Solid_black.png</texture>
+        </control>
+
         <control type="image" id="30001">
             <description>Background image</description>
             <posx>0</posx>
