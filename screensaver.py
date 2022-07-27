@@ -159,8 +159,8 @@ class Screensaver(xbmcgui.WindowXMLDialog):
         try:
             if url:
                 if url.find('//')<0: #if there is no urlscheme, then make a news search
-                    url = 'https://news.google.com/news/feeds?pz=1&cf=all&q=%s&hl=en&output=rss' % urllib.quote_plus(url)
-                    #url = "https://www.bing.com/news/search?q=%s&format=RSS" % urllib.quote_plus(url) 
+                    url = "https://www.bing.com/news/search?q=%s&format=RSS" % urllib.quote_plus(url)
+                    #url = 'https://news.google.com/news/feeds?pz=1&cf=all&q=%s&hl=en&output=rss' % urllib.quote_plus(url)
                     #url = requests.get(url, headers={'Accept-Language': 'en-US,en'});
                     #url = url.content.replace('<News:Image>','<media:thumbnail>')
                     #url = url.replace('</News:Image>','&amp;sz=1920x720</media:thumbnail>')
