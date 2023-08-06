@@ -34,13 +34,25 @@ import random
 import feedparser
 import re
 #from threading import Timer
-import urllib
-import HTMLParser #alternative: http://fredericiana.com/2010/10/08/decoding-html-entities-to-text-in-python/
 import time
 import datetime
-import requests
-import urlparse
 import traceback
+
+PY3 = sys.version_info.major >= 3
+
+if PY3:
+    import urllib.parse as urllib
+    import urllib.parse as urlparse
+    import urllib.request as requests
+    import html.parser as HTMLParser
+    import html
+
+else:
+    import urllib
+    import urlparse
+    import requests
+    import HTMLParser #alternative: http://fredericiana.com/2010/10/08/decoding-html-entities-to-text-in-python/
+
 
 addon = xbmcaddon.Addon()
 addon_name = addon.getAddonInfo('name')
@@ -55,6 +67,18 @@ CONTROL_DEBUG = 30005
 CONTROL_IMAGE = 30006
 CONTROL_CLOCK = 30007
 
+
+def checkStr(txt):
+    # Convert variable to type str both in Python 2 and 3
+    if PY3:
+        # Python 3
+        if type(txt) == type(bytes()):
+            txt = txt.decode('utf-8')
+    else:
+        # Python 2
+        if type(txt) == type(unicode()):
+            txt = txt.encode('utf-8')
+    return txt
 
 class Screensaver(xbmcgui.WindowXMLDialog):
 
@@ -88,7 +112,7 @@ class Screensaver(xbmcgui.WindowXMLDialog):
                 desc = item.description 
             if 'content' in item:
                 desc = item.content[0].value
-               
+
             cimg=''
             imgsrc = re.search('img[^<>\\n]+src=[\'"]([^"\']+)[\'"]',desc)
             if imgsrc:
@@ -100,8 +124,11 @@ class Screensaver(xbmcgui.WindowXMLDialog):
             desc = re.sub('<br[^>\\n]*>','\n',desc)
             desc = re.sub('<[^>\\n]+>','',desc)
             desc = re.sub('\\n\\n+','\n\n',desc)
-            desc = re.sub('(\\w+,?) *\\n(\\w+)','\\1 \\2',desc)  
-            desc = HTMLParser.HTMLParser().unescape(desc) 
+            desc = re.sub('(\\w+,?) *\\n(\\w+)','\\1 \\2',desc)
+            if PY3:
+                desc = html.unescape(desc) 
+            else:
+                desc = HTMLParser.HTMLParser().unescape(desc)
             self.getControl(CONTROL_MAINSTORY).setText(desc.strip() + '\n')
             if 'published_parsed' in item:
                 sdate=time.strftime('%d %b %H:%M',item.published_parsed)
@@ -112,7 +139,7 @@ class Screensaver(xbmcgui.WindowXMLDialog):
                 if 'media_thumbnail' in item:
                     for img in item.media_thumbnail:
                         w=1
-                        if 'width' in img: w=img['width']
+                        #if 'width' in img: w=img['width']
                         if w>maxwidth:
                             cimg=img['url']
                             maxwidth=w
@@ -216,7 +243,7 @@ class Screensaver(xbmcgui.WindowXMLDialog):
         self.close()
 
     def log(self, msg):
-        xbmc.log(u'Feedreader screensaver: %s' % msg)
+        xbmc.log('Feedreader screensaver: %s' % msg)
 
 
 if __name__ == '__main__':
