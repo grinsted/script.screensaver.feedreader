@@ -80,6 +80,12 @@ def checkStr(txt):
             txt = txt.encode('utf-8')
     return txt
 
+def convert_to_local_time(utc_time):
+    # Get the local timezone offset in seconds (positive for UTC- and negative for UTC+)
+    offset = time.timezone if (time.localtime().tm_isdst == 0) else time.altzone
+    local_time = utc_time + datetime.timedelta(seconds=-offset)
+    return local_time
+
 class Screensaver(xbmcgui.WindowXMLDialog):
 
 
@@ -131,9 +137,20 @@ class Screensaver(xbmcgui.WindowXMLDialog):
                 desc = HTMLParser.HTMLParser().unescape(desc)
             self.getControl(CONTROL_MAINSTORY).setText(desc.strip() + '\n')
             if 'published_parsed' in item:
-                sdate=time.strftime('%d %b %H:%M',item.published_parsed)
-            else: sdate=''
-            self.getControl(CONTROL_DATE).setText('%s\n%s' % (item.feedtitle,sdate))
+                try:
+                    # Convert the published time (assumed to be in UTC) to local time
+                    utc_time = datetime.datetime(*item.published_parsed[:6])
+                    local_time = convert_to_local_time(utc_time)
+                    sdate = local_time.strftime('%d %b %H:%M')
+                    self.getControl(CONTROL_DATE).setText('%s\n%s' % (item.feedtitle, sdate))
+                except Exception as e:
+                    xbmc.log(f"Error formatting published date: {str(e)}", xbmc.LOGERROR)
+                    sdate = ''
+            else:
+                sdate = ''
+                xbmc.log("No 'published_parsed' field found in RSS item.", xbmc.LOGINFO)
+            if not sdate:
+                self.getControl(CONTROL_DATE).setText("No date available")
             try:
                 maxwidth=0
                 if 'media_thumbnail' in item:
